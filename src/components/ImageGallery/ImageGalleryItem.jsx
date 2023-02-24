@@ -18,7 +18,7 @@ export class ImageGalleryItem extends Component {
         return (
             <>
             <img src={image} alt={alt} className="ImageGalleryItem-image" onClick={this.toggleModal} />
-            {this.state.showModal && <Modal img={largeImage} closeModal={this.toggleModal} />}
+            {this.state.showModal && <Modal img={largeImage} alt={alt} closeModal={this.toggleModal} />}
             </>
         )
     }

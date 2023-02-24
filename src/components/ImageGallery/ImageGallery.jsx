@@ -4,7 +4,6 @@ import { Loader } from '../Loader/Loader';
 import { getImages } from "components/Utils/Pixabay";
 import { Button } from "../Button/Button";
 import { NoImagesMessage } from '../NoImagesMessage/NoImagesMessage';
-import { Modal } from "components/Modal/Modal";
 
 export class ImageGallery extends Component {
 
