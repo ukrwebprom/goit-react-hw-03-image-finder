@@ -4,6 +4,7 @@ import { Loader } from '../Loader/Loader';
 import { getImages } from "components/Utils/Pixabay";
 import { Button } from "../Button/Button";
 import { NoImagesMessage } from '../NoImagesMessage/NoImagesMessage';
+import PropTypes from "prop-types";
 
 export class ImageGallery extends Component {
 
@@ -16,6 +17,14 @@ export class ImageGallery extends Component {
     }
     handleLoadMore = () =>{
         this.setState(({page}) => ({page: page+1}));
+    }
+
+    scrollDown = () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            left: 0,
+            behavior: 'smooth'
+          });
     }
 
     loadNew = async (request) => {
@@ -43,16 +52,12 @@ export class ImageGallery extends Component {
              }
         })
     }
-
+    
 
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.request !== this.props.request) this.loadNew(this.props.request);
         if(prevState.page !== this.state.page && this.state.page !== 1) this.loadMore(this.state.page);
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            left: 0,
-            behavior: 'smooth'
-          });
+        this.scrollDown();
     }
 
 
@@ -62,9 +67,9 @@ export class ImageGallery extends Component {
             <>
             
             <ul className="ImageGallery">
-              {images.map(item =>
-              <li className="ImageGalleryItem" key={item.id}> 
-              <ImageGalleryItem image={item.webformatURL} alt={item.tags} largeImage={item.largeImageURL} />  
+              {images.map(({id, webformatURL, tags, largeImageURL}) =>
+              <li className="ImageGalleryItem" key={id}> 
+              <ImageGalleryItem image={webformatURL} alt={tags} largeImage={largeImageURL} />  
               </li>)}
             </ul>
             {loadMore && <Button onClick={this.handleLoadMore}/>}
@@ -75,3 +80,7 @@ export class ImageGallery extends Component {
           );
     }
 };
+
+ImageGallery.propTypes = {
+    request:PropTypes.string.isRequired,
+}

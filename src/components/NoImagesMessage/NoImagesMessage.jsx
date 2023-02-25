@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export const NoImagesMessage = ({request}) => {
     return (
       <div className="loader-wrapper">
@@ -6,3 +8,6 @@ export const NoImagesMessage = ({request}) => {
     );
   };
   
+NoImagesMessage.propTypes = {
+  request:PropTypes.string.isRequired,
+}
